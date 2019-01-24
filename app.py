@@ -12,7 +12,7 @@ from flask import Flask, render_template, Response
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
 
-from camera_opencv import Camera
+from camera_opencv import Camera, Camera2
 app = Flask(__name__)
 
 
@@ -36,6 +36,11 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/video_feed2')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen(Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', threaded=True, debug=True)

@@ -15,3 +15,17 @@ class Camera(BaseCamera):
 
             # encode as a jpeg image and return it
             yield cv2.imencode('.jpg', img)[1].tobytes()
+
+class Camera2(BaseCamera):
+    @staticmethod
+    def frames():
+        camera2 = cv2.VideoCapture(1)
+        if not camera2.isOpened():
+            raise RuntimeError('Could not start camera.')
+
+        while True:
+            # read current frame
+            _, img2 = camera2.read()
+
+            # encode as a jpeg image and return it
+            yield cv2.imencode('.jpg', img2)[1].tobytes()
